@@ -1,7 +1,24 @@
 package com.ecommerce.apigateway.filter;
 
 
-public class CustomRouteFilter {
+import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import reactor.core.publisher.Mono;
+
+public class CustomRouteFilter extends AbstractGatewayFilterFactory<Object> {
+
+    public CustomRouteFilter() {
+        super(Object.class);
+    }
 
 
+    @Override
+    public GatewayFilter apply(Object config) {
+        return ((exchange, chain) -> {
+            System.out.println("Route Filter: before routing");
+            exchange.getRequest().mutate().header("X-Route-header","Added by Route Filter")
+                    .build();
+            return chain.filter(exchange).then(Mono.fromRunnable(() -> System.out.println("Route Filter: after routing")));
+        });
+    }
 }
