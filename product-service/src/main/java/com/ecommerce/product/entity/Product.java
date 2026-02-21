@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-import java.time.LocalDateTime;
-
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
