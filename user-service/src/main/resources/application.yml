@@ -1,7 +1,3 @@
-razorpay:
-  key:
-  secret:
-  webhook-secret:
 management:
   tracing:
     sampling:
