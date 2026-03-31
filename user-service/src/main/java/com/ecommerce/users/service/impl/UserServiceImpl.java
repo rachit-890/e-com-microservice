@@ -5,7 +5,7 @@ import com.ecommerce.users.dto.LoginResponseDto;
 import com.ecommerce.users.dto.UserCreateRequestDto;
 import com.ecommerce.users.dto.UserResponseDto;
 import com.ecommerce.users.entity.Users;
-import com.ecommerce.users.exception.ResourceAlreadyExitsException;
+import com.ecommerce.users.exception.ResourceAlreadyExistsException;
 import com.ecommerce.users.exception.ResourceNotFoundException;
 import com.ecommerce.users.mapper.AuthMapper;
 import com.ecommerce.users.mapper.UserMapper;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto register(UserCreateRequestDto dto) {
        if(userRepository.existsByEmail(dto.getEmail())){
-           throw new ResourceAlreadyExitsException("Email already registered");
+           throw new ResourceAlreadyExistsException("Email already registered");
        }
        Users user=userMapper.toEntity(dto);
        Users saved=userRepository.save(user);
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
            throw new ResourceNotFoundException("Invalid credentials");
        }
         String token=jwtUtils.generateToken(user.getId(), user.getEmail(), user.getRoles()) ;
-        return authMapper.toLOginResponse(user,token) ;
+        return authMapper.toLoginResponse(user,token) ;
     }
 
     @Override

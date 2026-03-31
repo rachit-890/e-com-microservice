@@ -44,4 +44,20 @@ public class OrderServiceImpl implements OrderService{
         orderEventProducer.sendOrderEvent(event);
         return orderMapper.toResponse(order);
     }
+
+    @Override
+    public void confirmOrder(String orderId) {
+        Order order = orderRepository.findByOrderNumber(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+        order.setOrderStatus("CONFIRMED");
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void failOrder(String orderId) {
+        Order order = orderRepository.findByOrderNumber(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+        order.setOrderStatus("FAILED");
+        orderRepository.save(order);
+    }
 }

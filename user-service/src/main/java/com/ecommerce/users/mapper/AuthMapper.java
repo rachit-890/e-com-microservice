@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthMapper {
 
-    public LoginResponseDto toLOginResponse(Users user,String token){
+    public LoginResponseDto toLoginResponse(Users user,String token){
         return new LoginResponseDto(
                 token,"Bearer",user.getId(), user.getEmail(), user.getName()
         );

@@ -11,7 +11,7 @@ public interface InventoryClient {
     @PostMapping("/api/inventory/{orderId}/commit")
     void commitEvent(@PathVariable String orderId);
 
-    @PostMapping("/api/inventory/{orderId}/commit")
+    @PostMapping("/api/inventory/{orderId}/rollback")
     void rollbackEvent(@PathVariable String orderId);
 
 }

@@ -12,8 +12,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceAlreadyExitsException.class)
-    public ResponseEntity<Map<String, Object>> handleExists(ResourceAlreadyExitsException ex){
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleExists(ResourceAlreadyExistsException ex){
         Map<String, Object> body = Map.of("error","Conflict","message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }

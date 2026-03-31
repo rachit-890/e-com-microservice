@@ -14,7 +14,6 @@ import java.time.Instant;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id1;
     private Long id;
     private String name;
 

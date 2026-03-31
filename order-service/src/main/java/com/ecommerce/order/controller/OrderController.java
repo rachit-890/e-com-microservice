@@ -7,10 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/orders")
@@ -22,5 +20,17 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponseDto> placeOrder(@RequestBody @Valid OrderRequestDto orderRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.placeOrder(orderRequestDto));
+    }
+
+    @PostMapping("/{orderId}/confirm")
+    public ResponseEntity<Void> confirmOrder(@PathVariable String orderId){
+        orderService.confirmOrder(orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{orderId}/fail")
+    public ResponseEntity<Void> failOrder(@PathVariable String orderId){
+        orderService.failOrder(orderId);
+        return ResponseEntity.ok().build();
     }
 }
